@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private fun init(){
         binding.btnGoOnNext.setOnClickListener {
             CentralRepository.callCommentApi()
+            Log.i("Detail", "initiated!")
             val intent = Intent(this, DetailActivity::class.java)
             startActivity(intent)
         }
