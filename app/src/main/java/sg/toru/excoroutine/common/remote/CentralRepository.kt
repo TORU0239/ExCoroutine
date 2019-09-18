@@ -31,7 +31,8 @@ object CentralRepository {
                     Log.i("Detail", "initiated!")
                 }
                 else{
-                    call.clone().enqueue(this)
+                    currentStatus = STATE.FAILED
+                    activityCallback?.onResult(currentStatus, null)
                 }
             }
         })

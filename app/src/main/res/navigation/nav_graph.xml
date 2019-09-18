@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/normalDetailFragment">
+    <fragment
+        android:id="@+id/normalDetailFragment"
+        android:name="sg.toru.excoroutine.second.ui.NormalDetailFragment"
+        android:label="fragment_normal_detail"
+        tools:layout="@layout/fragment_normal_detail" >
+        <action
+            android:id="@+id/action_normalDetailFragment_to_normalContentsFragment"
+            app:destination="@id/normalContentsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/normalContentsFragment"
+        android:name="sg.toru.excoroutine.second.ui.NormalContentsFragment"
+        android:label="fragment_normal_content"
+        tools:layout="@layout/fragment_normal_contents" />
+</navigation>

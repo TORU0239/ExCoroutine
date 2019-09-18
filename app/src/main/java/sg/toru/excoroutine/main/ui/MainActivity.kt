@@ -1,20 +1,16 @@
 package sg.toru.excoroutine.main.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
-import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import sg.toru.excoroutine.R
 import sg.toru.excoroutine.common.remote.*
 import sg.toru.excoroutine.databinding.ActivityMainBinding
 import sg.toru.excoroutine.second.DetailActivity
+import sg.toru.excoroutine.second.ui.NormalDetailActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnCoroutine.setOnClickListener {
-            startingActivity<DetailActivity>()
+            startingActivity<NormalDetailActivity>()
         }
     }
 

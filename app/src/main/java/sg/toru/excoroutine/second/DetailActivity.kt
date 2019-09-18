@@ -1,7 +1,5 @@
 package sg.toru.excoroutine.second
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +14,6 @@ import sg.toru.excoroutine.common.remote.CentralRepository
 import sg.toru.excoroutine.common.remote.STATE
 import sg.toru.excoroutine.databinding.ActivityDetailBinding
 import sg.toru.excoroutine.databinding.LayoutDetailBinding
-import sg.toru.excoroutine.main.ui.MainActivity
 
 class DetailActivity : AppCompatActivity() {
 
@@ -58,7 +55,8 @@ class DetailActivity : AppCompatActivity() {
     }
 }
 
-class DetailAdapter():ListAdapter<Comment, DetailViewHolder>(DetailDiffCallback()){
+
+class DetailAdapter:ListAdapter<Comment, DetailViewHolder>(DetailDiffCallback()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder{
         val binding = DataBindingUtil.inflate<LayoutDetailBinding>(LayoutInflater.from(parent.context), R.layout.layout_detail, parent, false)
         return DetailViewHolder(binding)
