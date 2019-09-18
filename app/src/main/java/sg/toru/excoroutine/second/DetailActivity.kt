@@ -1,20 +1,22 @@
 package sg.toru.excoroutine.second
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.*
 import sg.toru.excoroutine.R
+import sg.toru.excoroutine.common.data.Comment
 import sg.toru.excoroutine.common.remote.ActivityCallback
 import sg.toru.excoroutine.common.remote.CentralRepository
-import sg.toru.excoroutine.common.remote.Comment
 import sg.toru.excoroutine.common.remote.STATE
 import sg.toru.excoroutine.databinding.ActivityDetailBinding
 import sg.toru.excoroutine.databinding.LayoutDetailBinding
+import sg.toru.excoroutine.main.ui.MainActivity
 
 class DetailActivity : AppCompatActivity() {
 
@@ -36,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
     private val detailAdapter:DetailAdapter by lazy {
         DetailAdapter()
     }
+
 
     private var isAlreadyCreated = false
     override fun onCreate(savedInstanceState: Bundle?) {

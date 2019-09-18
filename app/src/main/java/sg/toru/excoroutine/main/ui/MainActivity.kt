@@ -1,5 +1,7 @@
 package sg.toru.excoroutine.main.ui
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,5 +35,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DetailActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnCoroutine.setOnClickListener {
+            startingActivity<DetailActivity>()
+        }
+    }
+
+    private inline fun <reified T:Activity> startingActivity(){
+        startActivity(Intent(this, T::class.java))
     }
 }

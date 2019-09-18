@@ -4,6 +4,7 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import sg.toru.excoroutine.common.data.Comment
 
 object CentralRepository {
     private var currentStatus:STATE = STATE.IDLE
@@ -11,9 +12,8 @@ object CentralRepository {
     var activityCallback:ActivityCallback? = null
 
     fun callCommentApi(){
-        val postedItemCall = NetworkModule.retrofit.create(NonCoroutineRequest::class.java)
         currentStatus = STATE.LOADING
-        postedItemCall.getPostedItem().enqueue(object: Callback<List<Comment>> {
+        NetworkModule.myRetrofit<NonCoroutineRequest>().getPostedItem().enqueue(object: Callback<List<Comment>> {
             override fun onFailure(call: Call<List<Comment>>,
                                    t: Throwable) {
                 currentStatus = STATE.FAILED
