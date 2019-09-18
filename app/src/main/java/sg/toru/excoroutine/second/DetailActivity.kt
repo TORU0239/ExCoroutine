@@ -56,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
 }
 
 
-class DetailAdapter:ListAdapter<Comment, DetailViewHolder>(DetailDiffCallback()){
+class DetailAdapter(private val listener:()->Unit = {}):ListAdapter<Comment, DetailViewHolder>(DetailDiffCallback()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder{
         val binding = DataBindingUtil.inflate<LayoutDetailBinding>(LayoutInflater.from(parent.context), R.layout.layout_detail, parent, false)
         return DetailViewHolder(binding)
@@ -64,6 +64,9 @@ class DetailAdapter:ListAdapter<Comment, DetailViewHolder>(DetailDiffCallback())
 
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
         holder.bindItem(getItem(position))
+        holder.itemView.setOnClickListener {
+            listener.invoke()
+        }
     }
 }
 
