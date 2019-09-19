@@ -10,18 +10,19 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import sg.toru.excoroutine.R
 import sg.toru.excoroutine.common.data.Comment
-import sg.toru.excoroutine.common.remote.CentralRepository
-import sg.toru.excoroutine.common.remote.NetworkModule
-import sg.toru.excoroutine.common.remote.NonCoroutineRequest
-import sg.toru.excoroutine.common.remote.STATE
+import sg.toru.excoroutine.common.remote.*
 import sg.toru.excoroutine.databinding.FragmentNormalDetailBinding
 import sg.toru.excoroutine.second.DetailAdapter
 
@@ -34,30 +35,18 @@ class NormalDetailFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        backPressedCallback = object:OnBackPressedCallback(true){
-//            override fun handleOnBackPressed() {
-//                findNavController().popBackStack()
-//            }
-//        }
-//        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
-//    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-//    private lateinit var backPressedCallback: OnBackPressedCallback
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i("Detail", "onViewCreated!!")
-        init()
+//        init()
+        testInit().observe(this, Observer {
+            it?.let { comments ->
+                init(comments)
+            }
+        })
     }
 
     private val detailAdapter: DetailAdapter by lazy {
         DetailAdapter{
-            Log.i("Detail", "WTF?")
             findNavController().navigate(R.id.action_normalDetailFragment_to_normalContentsFragment)
         }
     }
@@ -80,6 +69,26 @@ class NormalDetailFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun testInit(): LiveData<List<Comment>> {
+        val liveData = MutableLiveData<List<Comment>>()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = NetworkModule.myRetrofit<CommentRequest>().getPostedItems()
+                withContext(Dispatchers.Main){
+                    if(response.isSuccessful){
+                        response.body()?.let { commentList->
+                            liveData.value = commentList
+                        }
+                    }
+                }
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        return liveData
     }
 
     private fun init(item:List<Comment>){

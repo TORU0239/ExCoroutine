@@ -4,6 +4,7 @@ import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -33,7 +34,7 @@ object NetworkModule{
 
 interface CommentRequest{
     @GET("/comments")
-    suspend fun getPostedItems():List<Comment>
+    suspend fun getPostedItems():Response<List<Comment>>
 }
 
 interface NonCoroutineRequest{
